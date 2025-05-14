@@ -8,7 +8,7 @@
         </report>
     </coverage>
     <testsuites>
-        <testsuite name=":service_name Test Suite">
+        <testsuite name="Instagram Test Suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
