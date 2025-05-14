@@ -11,24 +11,17 @@ class InstagramServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Bootstrap code here.
+        $this->app->when(InstagramChannel::class)
+            ->needs(Instagram::class)
+            ->give(static function () {
 
-        /**
-         * Here's some example code we use for the pusher package.
-
-        $this->app->when(Channel::class)
-            ->needs(Pusher::class)
-            ->give(function () {
-                $pusherConfig = config('broadcasting.connections.pusher');
-
-                return new Pusher(
-                    $pusherConfig['key'],
-                    $pusherConfig['secret'],
-                    $pusherConfig['app_id']
-                );
+                return new Instagram([
+                    'apiVersion' => config('services.instagram.version', 'v22.0'),
+                    'accessToken' => config('services.instagram.access_token'),
+                    'username' => config('services.instagram.username'),
+                    'profileId' => config('services.instagram.profile_id'),
+                ]);
             });
-         */
-
     }
 
     /**
