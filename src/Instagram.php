@@ -36,13 +36,6 @@ class Instagram
     protected $accessToken;
 
     /**
-     * Username used to authenticate with the Instagram API.
-     *
-     * @var string
-     */
-    protected $username;
-
-    /**
      * Instagram profile ID associated with the authenticated user.
      *
      * curl -X GET "https://graph.instagram.com/me?fields=id,username&access_token=ACCESS_TOKEN"
@@ -56,7 +49,6 @@ class Instagram
         $this->http = $httpClient;
         $this->apiVersion = Arr::get($config, 'apiVersion');
         $this->accessToken = Arr::get($config, 'accessToken');
-        $this->username = Arr::get($config, 'username');
         $this->profileId = Arr::get($config, 'profileId');
     }
 
@@ -90,19 +82,6 @@ class Instagram
     public function setAccessToken(string $accessToken = null): self
     {
         $this->accessToken = $accessToken;
-
-        return $this;
-    }
-
-    /**
-     * Set the Instagram username associated with the account.
-     *
-     * @param string|null $username Instagram username.
-     * @return $this
-     */
-    public function setUsername(string $username = null): self
-    {
-        $this->username = $username;
 
         return $this;
     }
@@ -165,7 +144,6 @@ class Instagram
             empty($this->token) ||
             empty($this->apiVersion) ||
             empty($this->accessToken) ||
-            empty($this->username) ||
             empty($this->profileId)
         ) {
             throw CouldNotSendNotification::instagramPageTokenNotProvided('You must provide your Instagram tokens to make any API requests.');

@@ -18,7 +18,6 @@ class InstagramServiceProvider extends ServiceProvider
                 return new Instagram([
                     'apiVersion' => config('services.instagram.version', '22.0'),
                     'accessToken' => config('services.instagram.access_token'),
-                    'username' => config('services.instagram.username'),
                     'profileId' => config('services.instagram.profile_id'),
                 ]);
             });

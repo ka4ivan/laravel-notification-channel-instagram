@@ -36,7 +36,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 'instagram' => [
     'version' => env('INSTAGRAM_VERSION', '22.0'),
     'access_token' => env('INSTAGRAM_ACCESS_TOKEN', '')
-    'username' => env('INSTAGRAM_USERNAME', '')
     'profile_id' => env('INSTAGRAM_PROFILE_ID', '')
 ],
 ...
