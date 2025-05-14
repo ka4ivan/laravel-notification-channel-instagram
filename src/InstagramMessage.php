@@ -52,11 +52,24 @@ class InstagramMessage
         return $this;
     }
 
+    /**
+     * Recipient's Instagram ID.
+     *
+     * @return $this
+     */
     public function to($recipientId): self
     {
         $this->recipientId = $recipientId;
 
         return $this;
+    }
+
+    /**
+     * Determine if user id is not given.
+     */
+    public function toNotGiven(): bool
+    {
+        return !isset($this->recipientId);
     }
 
     /**

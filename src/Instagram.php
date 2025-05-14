@@ -173,7 +173,7 @@ class Instagram
 
         $url = self::API_HOST . "/v{$this->apiVersion}/{$endpoint}";
 
-        $options['headers']['Authorization'] = 'Bearer ' . $this->accessToken;
+        $options['headers']['Authorization'] = "Bearer {$this->accessToken}";
         $options['headers']['Accept'] = 'application/json';
 
         try {

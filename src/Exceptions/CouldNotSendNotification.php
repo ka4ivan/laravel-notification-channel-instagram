@@ -11,7 +11,7 @@ class CouldNotSendNotification extends \Exception
     {
         $error = Arr::get($response, 'error');
 
-        return new static("The communication with endpoint failed. Reason: {$error}", $response->getCode(), $response);
+        return new static("The communication with endpoint failed. Reason: {$error}");
     }
 
     public static function instagramRespondedWithAnError(ClientException $exception): self
@@ -24,7 +24,6 @@ class CouldNotSendNotification extends \Exception
 
         return new static('Facebook responded with an error');
     }
-
 
     /**
      * Thrown when there's no page token provided.
