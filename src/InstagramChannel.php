@@ -2,30 +2,58 @@
 
 namespace NotificationChannels\Instagram;
 
-use NotificationChannels\Instagram\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use NotificationChannels\Instagram\Exceptions\CouldNotCreateMessage;
+use NotificationChannels\Instagram\Exceptions\CouldNotSendNotification;
 
 class InstagramChannel
 {
-    public function __construct()
+    /** @var Instagram */
+    private $instagram;
+
+    /**
+     * FacebookChannel constructor.
+     */
+    public function __construct(Instagram $instagram)
     {
-        // Initialisation code here
+        $this->instagram = $instagram;
     }
 
     /**
      * Send the given notification.
      *
      * @param mixed $notifiable
-     * @param \Illuminate\Notifications\Notification $notification
+     * @param Notification $notification
      *
-     * @throws \NotificationChannels\Instagram\Exceptions\CouldNotSendNotification
+     * @return array
+     * @throws CouldNotCreateMessage
+     * @throws CouldNotSendNotification
      */
-    public function send($notifiable, Notification $notification)
+    public function send($notifiable, Notification $notification): array
     {
-        //$response = [a call to the api of your notification send]
+        $message = $notification->toInstagram($notifiable);
 
-//        if ($response->error) { // replace this by the code need to check for errors
-//            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
-//        }
+        if (is_string($message)) {
+            $message = InstagramMessage::create($message);
+        }
+
+        if ($message->toNotGiven()) {
+            if (!$to = $notifiable->routeNotificationFor('instagram')) {
+                throw CouldNotCreateMessage::recipientNotProvided();
+            }
+
+            $message->to($to);
+        }
+
+        $response = $this->instagram->send($message->toArray());
+
+        if (Arr::get($response, 'error')) {
+            throw CouldNotSendNotification::instagramRespondedWithAnExceptionError($response);
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 }
