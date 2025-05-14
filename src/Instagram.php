@@ -141,7 +141,6 @@ class Instagram
     protected function api(string $endpoint, array $options, string $method = 'GET')
     {
         if (
-            empty($this->token) ||
             empty($this->apiVersion) ||
             empty($this->accessToken) ||
             empty($this->profileId)

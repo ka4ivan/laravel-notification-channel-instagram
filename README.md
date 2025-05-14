@@ -46,7 +46,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 Let's take an invoice-paid-notification as an example.
 You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($userId)` method defines the Instagram user, you want to send the notification to.
 
-
 ```php
 use NotificationChannels\Instagram\InstagramChannel;
 use NotificationChannels\Instagram\InstagramMessage;
