@@ -22,7 +22,7 @@ class Instagram
     protected $http;
 
     /**
-     * Instagram API version (e.g., 'v22.0')
+     * Instagram API version (e.g., '22.0')
      *
      * @var string
      */
@@ -171,7 +171,7 @@ class Instagram
             throw CouldNotSendNotification::instagramPageTokenNotProvided('You must provide your Instagram tokens to make any API requests.');
         }
 
-        $url = self::API_HOST . "/{$this->apiVersion}/{$endpoint}";
+        $url = self::API_HOST . "/v{$this->apiVersion}/{$endpoint}";
 
         $options['headers']['Authorization'] = 'Bearer ' . $this->accessToken;
         $options['headers']['Accept'] = 'application/json';

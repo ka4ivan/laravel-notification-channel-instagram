@@ -16,7 +16,7 @@ class InstagramServiceProvider extends ServiceProvider
             ->give(static function () {
 
                 return new Instagram([
-                    'apiVersion' => config('services.instagram.version', 'v22.0'),
+                    'apiVersion' => config('services.instagram.version', '22.0'),
                     'accessToken' => config('services.instagram.access_token'),
                     'username' => config('services.instagram.username'),
                     'profileId' => config('services.instagram.profile_id'),
