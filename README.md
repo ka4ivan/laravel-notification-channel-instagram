@@ -73,7 +73,7 @@ class ChannelConnected extends Notification
 
 The notification will be sent from your Instagram page, whose page token you have configured earlier. Here's a screenshot preview of the notification inside the chat window.
 
-![Laravel Facebook Notification Example](https://cloud.githubusercontent.com/assets/1915268/17666125/58d6b66c-631c-11e6-9380-0400832b2e48.png)
+![image](https://github.com/user-attachments/assets/30cfd446-fd5f-4dd4-9705-82a820bf7295)
 
 #### Message Examples
 
