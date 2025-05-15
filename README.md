@@ -120,12 +120,7 @@ return InstagramMessage::create()
 ```
 
 ###### Media types and specifications
-| Media Type | Supported Format         | Supported Size Maximum |
-|------------|-------------------------|-----------------------|
-| Audio      | aac, m4a, wav, mp4      | 25MB                  |
-| Image      | png, jpeg, gif          | 8MB                   |
-| Video      | mp4, ogg, avi, mov, webm| 25MB                  |
-
+<table align="center" border="1" cellspacing="0" cellpadding="5"> <thead> <tr> <th>Media Type</th> <th>Supported Format</th> <th>Supported Size Maximum</th> </tr> </thead> <tbody> <tr> <td>Audio</td> <td>aac, m4a, wav, mp4</td> <td>25MB</td> </tr> <tr> <td>Image</td> <td>png, jpeg, gif</td> <td>8MB</td> </tr> <tr> <td>Video</td> <td>mp4, ogg, avi, mov, webm</td> <td>25MB</td> </tr> </tbody> </table>
 
 ##### Message With Buttons
 
