@@ -33,4 +33,34 @@ class CouldNotCreateMessage extends \Exception
     {
         return new static('Your message was missing critical information');
     }
+
+    /**
+     * Thrown when invalid attachment type provided.
+     *
+     * @return static
+     */
+    public static function invalidAttachmentType(): self
+    {
+        return new static('Attachment Type provided is invalid.');
+    }
+
+    /**
+     * Thrown when a URl should be provided for an attachment.
+     *
+     * @return static
+     */
+    public static function urlNotProvided(): self
+    {
+        return new static('You have not provided a Url for an attachment');
+    }
+
+    /**
+     * Thrown when number of buttons in message exceeds.
+     *
+     * @return static
+     */
+    public static function messageButtonsLimitExceeded(): self
+    {
+        return new static('You cannot add more than 3 buttons in 1 notification message.');
+    }
 }

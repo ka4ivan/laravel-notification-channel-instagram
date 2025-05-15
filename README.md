@@ -109,9 +109,28 @@ The notification will be sent from your Instagram page, whose page token you hav
 
 ##### Basic Text Message
 
-Send a basic text message to a user
 ```php
 return InstagramMessage::create('You have just paid your monthly fee! Thanks');
+```
+
+##### Message With Attachment
+
+```php
+return InstagramMessage::create()
+    ->attach(AttachmentType::IMAGE, url('images/'.$this->product->id))
+    ->to($notifiable->instagram_id);
+```
+
+##### Message With Buttons
+
+```php
+return InstagramMessage::create()
+    ->to($notifiable->instagram_id)
+    ->text('How can we help?')
+    ->buttons([
+        Button::create('View Website', $url)->isTypeWebUrl(),
+        Button::create('Start Chatting', ['user' => $this->user->id])->isTypePostback() // Custom payload sent back to your server
+    ]);
 ```
 
 ### Routing a message
@@ -133,13 +152,23 @@ public function routeNotificationForInstagram()
 ```
 
 ### Available Message methods
-
-- `to($recipientId)`: (string) User (recipient) Instagram ID (IGSID)
+- `to($recipientId)`: (string) User (recipient) Instagram ID (IGSID).
 - `text('')`: (string) Notification message.
+- `attach($attachmentType, $url)`: (AttachmentType, string) An attachment type (IMAGE, AUDIO, VIDEO) and the url of this attachment.
+- `buttons($buttons = [])`: (array) An array of "Call to Action" buttons (Created using NotificationChannels\Instagram\Components\Button::create()). You can add up to 3 buttons of one of the following types: web_url or postback. See Button methods below for more details.
+
+
+### Available Button methods
+- `title('')`: (string) Button Title.
+- `data('')`: (string) Button Data - It can be a web url or postback data.
+- `type('')`: (string) Button Type - `web_url` or `postback`. Use `ButtonType` enumerator for guaranteeing valid values
+- `isTypeWebUrl()`: Helper method to create a `web_url` type button.
+- `isTypePostback()`: Helper method to create a `postback` type button.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

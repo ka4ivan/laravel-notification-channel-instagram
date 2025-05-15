@@ -2,9 +2,10 @@
 
 namespace NotificationChannels\Instagram;
 
+use NotificationChannels\Instagram\Enums\AttachmentType;
 use NotificationChannels\Instagram\Exceptions\CouldNotCreateMessage;
 
-class InstagramMessage
+class InstagramMessage implements \JsonSerializable
 {
     /** @var string Recipient's ID. */
     public $recipientId;
@@ -14,6 +15,18 @@ class InstagramMessage
 
     /** @var bool */
     protected $hasText = false;
+
+    /** @var string Attachment Type. Defaults to File */
+    public $attachmentType = AttachmentType::IMAGE;
+
+    /** @var string Attachment URL */
+    public $attachmentUrl;
+
+    /** @var bool */
+    protected $hasAttachment = false;
+
+    /** @var array Call to Action Buttons */
+    protected $buttons = [];
 
     /**
      * @throws CouldNotCreateMessage
@@ -73,12 +86,76 @@ class InstagramMessage
     }
 
     /**
+     * Add Attachment.
+     *
+     * @return $this
+     *
+     * @throws CouldNotCreateMessage
+     */
+    public function attach(string $attachmentType, string $url): self
+    {
+        $attachmentTypes = [
+            AttachmentType::IMAGE,
+            AttachmentType::VIDEO,
+            AttachmentType::AUDIO,
+        ];
+
+        if (!in_array($attachmentType, $attachmentTypes)) {
+            throw CouldNotCreateMessage::invalidAttachmentType();
+        }
+
+        if (blank($url)) {
+            throw CouldNotCreateMessage::urlNotProvided();
+        }
+
+        $this->attachmentType = $attachmentType;
+        $this->attachmentUrl = $url;
+        $this->hasAttachment = true;
+
+        return $this;
+    }
+
+    /**
+     * Add up to 3 call to action buttons.
+     *
+     * @return $this
+     *
+     * @throws CouldNotCreateMessage
+     */
+    public function buttons(array $buttons = []): self
+    {
+        if (count($buttons) > 3) {
+            throw CouldNotCreateMessage::messageButtonsLimitExceeded();
+        }
+
+        $this->buttons = $buttons;
+
+        return $this;
+    }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     *
+     * @throws CouldNotCreateMessage
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Returns message payload for JSON conversion.
      *
      * @throws CouldNotCreateMessage
      */
     public function toArray(): array
     {
+        if ($this->hasAttachment) {
+            return $this->attachmentMessageToArray();
+        }
+
         if ($this->hasText) {
             return $this->textMessageToArray();
         }
@@ -98,4 +175,16 @@ class InstagramMessage
         return $message;
     }
 
+    /**
+     * Returns message for attachment message.
+     */
+    protected function attachmentMessageToArray(): array
+    {
+        $message = [];
+        $message['recipient']['id'] = $this->recipientId;
+        $message['message']['attachment']['type'] = $this->attachmentType;
+        $message['message']['attachment']['payload']['url'] = $this->attachmentUrl;
+
+        return $message;
+    }
 }
