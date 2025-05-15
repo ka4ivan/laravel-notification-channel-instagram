@@ -4,7 +4,6 @@
 [![Build Status](https://img.shields.io/github/stars/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://github.com/ka4ivan/laravel-notification-channel-instagram)
 [![Latest Stable Version](https://img.shields.io/packagist/v/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-instagram)
 [![Total Downloads](https://img.shields.io/packagist/dt/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-instagram)
-[![Quality Score](https://img.shields.io/scrutinizer/g/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://scrutinizer-ci.com/g/ka4ivan/laravel-notification-channel-instagram/?branch=main)
 
 This package makes it easy to send notifications using the [Instagram Messenger](https://developers.facebook.com/docs/instagram-platform) with Laravel.
 
