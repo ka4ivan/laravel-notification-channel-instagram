@@ -16,3 +16,8 @@ checks:
 
 tools:
     external_code_coverage: true
+
+build:
+    environment:
+        php:
+            version: 8.1
