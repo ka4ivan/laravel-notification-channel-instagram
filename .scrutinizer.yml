@@ -21,6 +21,8 @@ build:
     environment:
         php:
             version: 8.1
+            ini:
+                xdebug.mode: coverage
     dependencies:
         before:
             - composer install --no-interaction
