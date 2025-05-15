@@ -1,9 +1,5 @@
 checks:
     php:
-        code_rating: true
-        duplication: true
-        unreachable_code: true
-        unused_variables: true
         remove_extra_empty_lines: true
         remove_php_closing_tag: true
         remove_trailing_whitespace: true
@@ -19,21 +15,11 @@ checks:
         fix_doc_comments: true
 
 tools:
-    php_analyzer: true
-    php_code_coverage: true
+    external_code_coverage: true
 
 build:
-    environment:
-        php:
-            version: 8.1
-            ini:
-                xdebug.mode: coverage
-    dependencies:
-        before:
-            - composer install --no-interaction
-    tests:
-        override:
-            - command: vendor/bin/phpunit --coverage-clover=coverage.xml
-              coverage:
-                  file: coverage.xml
-                  format: clover
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
