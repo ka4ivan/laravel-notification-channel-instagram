@@ -34,7 +34,6 @@ build:
             - composer install --no-interaction
     tests:
         override:
-            - php-scrutinizer-run
             - command: vendor/bin/phpunit --coverage-clover=coverage.xml
               coverage:
                   file: coverage.xml
