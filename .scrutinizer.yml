@@ -16,3 +16,16 @@ checks:
 
 tools:
     external_code_coverage: true
+
+build:
+    environment:
+        php:
+            version: 8.1
+    dependencies:
+        before:
+            - composer install --no-interaction
+    tests:
+        override:
+            - command: vendor/bin/phpunit --coverage-clover=coverage.xml
+              coverage:
+                  file: coverage.xml
