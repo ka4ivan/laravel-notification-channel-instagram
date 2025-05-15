@@ -16,6 +16,7 @@ This package makes it easy to send notifications using the [Instagram Messenger]
       - [Set start buttons](#set-start-buttons)
 - [Usage](#usage)
     - [Available Message methods](#available-message-methods)
+    - [Available Button methods](#available-button-methods)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -40,7 +41,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 
 ```php
 // config/services.php
-...
 'instagram' => [
     'version' => env('INSTAGRAM_VERSION', '22.0'),
     'access_token' => env('INSTAGRAM_ACCESS_TOKEN', ''),
@@ -52,7 +52,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
         ],
     ],
 ],
-...
 ```
 
 ### Set start buttons
@@ -69,14 +68,14 @@ Possible options for the command
 {--api_version= : Instagram API version (default from config)}'
 ```
 
-This command will add the start buttons that appear when entering the chat for the first time
+This command will add the [start buttons](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api/ice-breakers) that appear when entering the chat for the first time
 
 ![image](https://github.com/user-attachments/assets/c4a1af25-df9f-4170-973c-c099678955a0)
 
 ## Usage
 
 Let's take an invoice-paid-notification as an example.
-You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($userId)` method defines the Instagram user, you want to send the notification to.
+You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($recipientId)` (IGSID) method defines the Instagram user, you want to send the notification to.
 
 ```php
 use NotificationChannels\Instagram\InstagramChannel;
@@ -121,6 +120,9 @@ return InstagramMessage::create()
     ->to($notifiable->instagram_id);
 ```
 
+###### Media types and specifications
+<table align="center" border="1" cellspacing="0" cellpadding="5"> <thead> <tr> <th>Media Type</th> <th>Supported Format</th> <th>Supported Size Maximum</th> </tr> </thead> <tbody> <tr> <td>Audio</td> <td>aac, m4a, wav, mp4</td> <td>25MB</td> </tr> <tr> <td>Image</td> <td>png, jpeg, gif</td> <td>8MB</td> </tr> <tr> <td>Video</td> <td>mp4, ogg, avi, mov, webm</td> <td>25MB</td> </tr> </tbody> </table>
+
 ##### Message With Buttons
 
 ```php
@@ -138,7 +140,6 @@ return InstagramMessage::create()
 You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` (IGSID) method like shown in the above example or add a `routeNotificationForInstagram()` method in your notifiable model:
 
 ```php
-...
 /**
  * Route notifications for the Instagram channel.
  *
@@ -148,7 +149,6 @@ public function routeNotificationForInstagram()
 {
     return $this->instagram_id;
 }
-...
 ```
 
 ### Available Message methods
