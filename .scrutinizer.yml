@@ -1,5 +1,10 @@
 checks:
     php:
+        code_rating: true
+        duplication: true
+        variable_analysis: true
+        unreachable_code: true
+        unused_variables: true
         remove_extra_empty_lines: true
         remove_php_closing_tag: true
         remove_trailing_whitespace: true
@@ -14,6 +19,10 @@ checks:
         fix_identation_4spaces: true
         fix_doc_comments: true
 
+tools:
+    php_analyzer: true
+    php_code_coverage: true
+
 build:
     environment:
         php:
@@ -25,6 +34,7 @@ build:
             - composer install --no-interaction
     tests:
         override:
+            - php-scrutinizer-run
             - command: vendor/bin/phpunit --coverage-clover=coverage.xml
               coverage:
                   file: coverage.xml
