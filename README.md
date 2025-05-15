@@ -40,7 +40,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 
 ```php
 // config/services.php
-...
 'instagram' => [
     'version' => env('INSTAGRAM_VERSION', '22.0'),
     'access_token' => env('INSTAGRAM_ACCESS_TOKEN', ''),
@@ -52,7 +51,6 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
         ],
     ],
 ],
-...
 ```
 
 ### Set start buttons
@@ -138,7 +136,6 @@ return InstagramMessage::create()
 You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` (IGSID) method like shown in the above example or add a `routeNotificationForInstagram()` method in your notifiable model:
 
 ```php
-...
 /**
  * Route notifications for the Instagram channel.
  *
@@ -148,7 +145,6 @@ public function routeNotificationForInstagram()
 {
     return $this->instagram_id;
 }
-...
 ```
 
 ### Available Message methods

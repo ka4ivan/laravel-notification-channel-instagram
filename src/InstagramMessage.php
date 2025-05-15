@@ -157,6 +157,11 @@ class InstagramMessage implements \JsonSerializable
         }
 
         if ($this->hasText) {
+            // check if it has buttons
+            if (count($this->buttons) > 0) {
+                return $this->buttonMessageToArray();
+            }
+
             return $this->textMessageToArray();
         }
 
@@ -184,6 +189,21 @@ class InstagramMessage implements \JsonSerializable
         $message['recipient']['id'] = $this->recipientId;
         $message['message']['attachment']['type'] = $this->attachmentType;
         $message['message']['attachment']['payload']['url'] = $this->attachmentUrl;
+
+        return $message;
+    }
+
+    /**
+     * Returns message for Button Template message.
+     */
+    protected function buttonMessageToArray(): array
+    {
+        $message = [];
+        $message['recipient']['id'] = $this->recipientId;
+        $message['message']['attachment']['type'] = 'template';
+        $message['message']['attachment']['payload']['template_type'] = 'button';
+        $message['message']['attachment']['payload']['text'] = $this->text;
+        $message['message']['attachment']['payload']['buttons'] = $this->buttons;
 
         return $message;
     }
