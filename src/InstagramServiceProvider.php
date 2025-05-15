@@ -21,6 +21,12 @@ class InstagramServiceProvider extends ServiceProvider
                     'profileId' => config('services.instagram.profile_id'),
                 ]);
             });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\InstagramSetStartButtons::class,
+            ]);
+        }
     }
 
     /**

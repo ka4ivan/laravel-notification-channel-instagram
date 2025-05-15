@@ -32,6 +32,13 @@
             "NotificationChannels\\Instagram\\Test\\": "tests"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NotificationChannels\\Instagram\\InstagramServiceProvider"
+            ]
+        }
+    },
     "scripts": {
         "test": "phpunit",
         "test:coverage": "phpunit --coverage-text --coverage-clover=coverage.clover"

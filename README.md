@@ -63,6 +63,13 @@ Run the command to set the start buttons
 php artisan instagram:set-start-buttons
 ```
 
+Possible options for the command
+```php
+{--access_token= : Instagram access token}
+{--profile_id= : Instagram profile ID}
+{--api_version= : Instagram API version (default from config)}'
+```
+
 This command will add the start buttons that appear when entering the chat for the first time
 
 ![image](https://github.com/user-attachments/assets/c4a1af25-df9f-4170-973c-c099678955a0)
@@ -110,7 +117,7 @@ return InstagramMessage::create('You have just paid your monthly fee! Thanks');
 
 ### Routing a message
 
-You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` method like shown in the above example or add a `routeNotificationForInstagram()` method in your notifiable model:
+You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` (IGSID) method like shown in the above example or add a `routeNotificationForInstagram()` method in your notifiable model:
 
 ```php
 ...
@@ -128,7 +135,7 @@ public function routeNotificationForInstagram()
 
 ### Available Message methods
 
-- `to($recipientId)`: (string) User (recipient) Instagram ID
+- `to($recipientId)`: (string) User (recipient) Instagram ID (IGSID)
 - `text('')`: (string) Notification message.
 
 ## Contributing
