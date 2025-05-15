@@ -119,6 +119,14 @@ return InstagramMessage::create()
     ->to($notifiable->instagram_id);
 ```
 
+###### Media types and specifications
+| Media Type | Supported Format         | Supported Size Maximum |
+|------------|-------------------------|-----------------------|
+| Audio      | aac, m4a, wav, mp4      | 25MB                  |
+| Image      | png, jpeg, gif          | 8MB                   |
+| Video      | mp4, ogg, avi, mov, webm| 25MB                  |
+
+
 ##### Message With Buttons
 
 ```php
