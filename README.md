@@ -12,6 +12,9 @@ This package makes it easy to send notifications using the [Instagram Messenger]
 
 - [Installation](#installation)
     - [Setting up your Instagram Bot](#setting-up-your-instagram-bot)
+      - [Get Profile ID](#get-profile-id)
+      - [Set config](#set-config)
+      - [Set start buttons](#set-start-buttons)
 - [Usage](#usage)
     - [Available Message methods](#available-message-methods)
 - [Contributing](#contributing)
@@ -28,6 +31,12 @@ composer require ka4ivan/laravel-notification-channel-instagram
 
 ## Setting up your Instagram Bot
 
+### Get Profile ID
+``` bash
+curl -X GET "https://graph.instagram.com/me?fields=id,username&access_token=ACCESS_TOKEN"
+```
+
+### Set config
 Next we need to add tokens to our Laravel configurations. Create a new Instagram section inside `config/services.php` and place the page token there:
 
 ```php
@@ -35,11 +44,28 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 ...
 'instagram' => [
     'version' => env('INSTAGRAM_VERSION', '22.0'),
-    'access_token' => env('INSTAGRAM_ACCESS_TOKEN', '')
-    'profile_id' => env('INSTAGRAM_PROFILE_ID', '')
+    'access_token' => env('INSTAGRAM_ACCESS_TOKEN', ''),
+    'profile_id' => env('INSTAGRAM_PROFILE_ID', ''),
+    'start_buttons' => [
+        [
+            'question' => 'Start',
+            'payload' => 'start',
+        ],
+    ],
 ],
 ...
 ```
+
+### Set start buttons
+
+Run the command to set the start buttons
+``` bash
+php artisan instagram:set-start-buttons
+```
+
+This command will add the start buttons that appear when entering the chat for the first time
+
+[//]: # (TODO фото стартових кнопок)
 
 ## Usage
 
