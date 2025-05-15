@@ -2,7 +2,6 @@ checks:
     php:
         code_rating: true
         duplication: true
-        variable_analysis: true
         unreachable_code: true
         unused_variables: true
         remove_extra_empty_lines: true
