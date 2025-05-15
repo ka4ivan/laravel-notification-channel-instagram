@@ -74,7 +74,7 @@ This command will add the [start buttons](https://developers.facebook.com/docs/i
 ## Usage
 
 Let's take an invoice-paid-notification as an example.
-You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($userId)` method defines the Instagram user, you want to send the notification to.
+You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($recipientId)` (IGSID) method defines the Instagram user, you want to send the notification to.
 
 ```php
 use NotificationChannels\Instagram\InstagramChannel;
