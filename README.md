@@ -1,78 +1,146 @@
-Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
+# Instagram Notifications Channel for Laravel
 
-# A Boilerplate repo for contributions
+[![License](https://img.shields.io/packagist/l/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-instagram)
+[![Build Status](https://img.shields.io/github/stars/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://github.com/ka4ivan/laravel-notification-channel-instagram)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-instagram)
+[![Total Downloads](https://img.shields.io/packagist/dt/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-instagram)
+[![Quality Score](https://img.shields.io/scrutinizer/g/ka4ivan/laravel-notification-channel-instagram.svg?style=for-the-badge)](https://scrutinizer-ci.com/g/ka4ivan/laravel-notification-channel-instagram/?branch=main)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/:package_name)
-[![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
-
-This package makes it easy to send notifications using [:service_name](link to service) with Laravel 10.x.
-
-**Note:** Replace ```:channel_namespace``` ```:service_name``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
-**Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
-
-This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
-
-
+This package makes it easy to send notifications using the [Instagram Messenger](https://developers.facebook.com/docs/instagram-platform) with Laravel.
 
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the :service_name service](#setting-up-the-:service_name-service)
+    - [Setting up your Instagram Bot](#setting-up-your-instagram-bot)
+      - [Get Profile ID](#get-profile-id)
+      - [Set config](#set-config)
+      - [Set start buttons](#set-start-buttons)
 - [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
-- [Changelog](#changelog)
-- [Testing](#testing)
-- [Security](#security)
+    - [Available Message methods](#available-message-methods)
 - [Contributing](#contributing)
-- [Credits](#credits)
 - [License](#license)
 
 
 ## Installation
 
-Please also include the steps for any third-party service setup that's required for this package.
+You can install the package via composer:
 
-### Setting up the :service_name service
+``` bash
+composer require ka4ivan/laravel-notification-channel-instagram
+```
 
-Optionally include a few steps how users can set up the service.
+## Setting up your Instagram Bot
+
+### Get Profile ID
+``` bash
+curl -X GET "https://graph.instagram.com/me?fields=id,username&access_token=ACCESS_TOKEN"
+```
+
+### Set config
+Next we need to add tokens to our Laravel configurations. Create a new Instagram section inside `config/services.php` and place the page token there:
+
+```php
+// config/services.php
+...
+'instagram' => [
+    'version' => env('INSTAGRAM_VERSION', '22.0'),
+    'access_token' => env('INSTAGRAM_ACCESS_TOKEN', ''),
+    'profile_id' => env('INSTAGRAM_PROFILE_ID', ''),
+    'start_buttons' => [
+        [
+            'question' => 'Start',
+            'payload' => 'start',
+        ],
+    ],
+],
+...
+```
+
+### Set start buttons
+
+Run the command to set the start buttons
+``` bash
+php artisan instagram:set-start-buttons
+```
+
+Possible options for the command
+```php
+{--access_token= : Instagram access token}
+{--profile_id= : Instagram profile ID}
+{--api_version= : Instagram API version (default from config)}'
+```
+
+This command will add the start buttons that appear when entering the chat for the first time
+
+![image](https://github.com/user-attachments/assets/c4a1af25-df9f-4170-973c-c099678955a0)
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+Let's take an invoice-paid-notification as an example.
+You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($userId)` method defines the Instagram user, you want to send the notification to.
+
+```php
+use NotificationChannels\Instagram\InstagramChannel;
+use NotificationChannels\Instagram\InstagramMessage;
+
+use Illuminate\Notifications\Notification;
+
+class ChannelConnected extends Notification
+{
+    public function via($notifiable)
+    {
+        return [InstagramChannel::class];
+    }
+
+    public function toInstagram($notifiable)
+    {
+
+        return InstagramMessage::create()
+            ->to($notifiable->instagram_id) // Optional
+            ->text('Congratulations, the communication channel is connected');
+    }
+}
+```
+
+The notification will be sent from your Instagram page, whose page token you have configured earlier. Here's a screenshot preview of the notification inside the chat window.
+
+![image](https://github.com/user-attachments/assets/30cfd446-fd5f-4dd4-9705-82a820bf7295)
+
+#### Message Examples
+
+##### Basic Text Message
+
+Send a basic text message to a user
+```php
+return InstagramMessage::create('You have just paid your monthly fee! Thanks');
+```
+
+### Routing a message
+
+You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` (IGSID) method like shown in the above example or add a `routeNotificationForInstagram()` method in your notifiable model:
+
+```php
+...
+/**
+ * Route notifications for the Instagram channel.
+ *
+ * @return int
+ */
+public function routeNotificationForInstagram()
+{
+    return $this->instagram_id;
+}
+...
+```
 
 ### Available Message methods
 
-A list of all available options
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
-
-## Security
-
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+- `to($recipientId)`: (string) User (recipient) Instagram ID (IGSID)
+- `text('')`: (string) Notification message.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Credits
-
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
-
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

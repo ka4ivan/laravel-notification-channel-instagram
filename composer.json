@@ -1,20 +1,22 @@
 {
-    "name": "laravel-notification-channels/:package_name",
-    "description": ":package_description",
-    "homepage": "https://github.com/laravel-notification-channels/:package_name",
+    "name": "ka4ivan/laravel-notification-channel-instagram",
+    "description": "Instagram Notifications Channel for Laravel",
+    "keywords": [
+        "laravel", "notifications", "instagram", "instagram api", "laravel notification channel", "laravel package", "social media", "realtime notifications", "laravel notifications channel", "instagram notifications"
+    ],
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
-            "role": "Developer"
+            "name": "Kachula Ivan",
+            "email": "ka4ivan.dev@gmail.com",
+            "role": "Architect & Developer",
+            "homepage": "https://github.com/ka4ivan"
         }
     ],
     "require": {
         "php": ">=8.1",
-        "illuminate/notifications": "~10.0 || ~11.0",
-        "illuminate/support": "~10.0 || ~11.0"
+        "illuminate/notifications": "~10.0 || ~11.0 || ~12.0",
+        "illuminate/support": "~10.0 || ~11.0 || ~12.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
@@ -22,12 +24,19 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\": "src"
+            "NotificationChannels\\Instagram\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\Test\\": "tests"
+            "NotificationChannels\\Instagram\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NotificationChannels\\Instagram\\InstagramServiceProvider"
+            ]
         }
     },
     "scripts": {
