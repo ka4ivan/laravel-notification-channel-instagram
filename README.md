@@ -16,6 +16,7 @@ This package makes it easy to send notifications using the [Instagram Messenger]
       - [Set start buttons](#set-start-buttons)
 - [Usage](#usage)
     - [Available Message methods](#available-message-methods)
+    - [Available Button methods](#available-button-methods)
 - [Contributing](#contributing)
 - [License](#license)
 
