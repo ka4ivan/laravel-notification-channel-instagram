@@ -67,7 +67,7 @@ Possible options for the command
 {--api_version= : Instagram API version (default from config)}'
 ```
 
-This command will add the start buttons that appear when entering the chat for the first time
+This command will add the [start buttons](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api/ice-breakers) that appear when entering the chat for the first time
 
 ![image](https://github.com/user-attachments/assets/c4a1af25-df9f-4170-973c-c099678955a0)
 
