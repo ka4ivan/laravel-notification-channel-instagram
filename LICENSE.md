@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright (c) :author_name <:author_email>
+Copyright (c) ka4ivan ka4ivan.dev@gmail.com
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
@@ -18,4 +18,4 @@ Copyright (c) :author_name <:author_email>
 > AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 > LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-> THE SOFTWARE.
+> THE SOFTWARE. 
