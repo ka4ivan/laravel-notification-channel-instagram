@@ -65,7 +65,7 @@ php artisan instagram:set-start-buttons
 
 This command will add the start buttons that appear when entering the chat for the first time
 
-[//]: # (TODO фото стартових кнопок)
+![image](https://github.com/user-attachments/assets/c4a1af25-df9f-4170-973c-c099678955a0)
 
 ## Usage
 
