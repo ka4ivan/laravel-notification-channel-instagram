@@ -31,7 +31,7 @@ class InstagramSetStartButtons extends Command
     {
         $accessToken = $this->option('access_token') ?: config('services.instagram.access_token');
         $profileId = $this->option('profile_id') ?: config('services.instagram.profile_id');
-        $version = $this->option('api_version') ?: config('services.instagram.version');
+        $version = $this->option('api_version') ?: config('services.instagram.api_version');
         $buttons = config('services.instagram.start_buttons');
 
         if (empty($accessToken) || empty($profileId)) {

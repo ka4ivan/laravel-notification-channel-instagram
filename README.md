@@ -42,7 +42,7 @@ Next we need to add tokens to our Laravel configurations. Create a new Instagram
 ```php
 // config/services.php
 'instagram' => [
-    'version' => env('INSTAGRAM_VERSION', '22.0'),
+    'api_version' => env('INSTAGRAM_API_VERSION', '22.0'),
     'access_token' => env('INSTAGRAM_ACCESS_TOKEN', ''),
     'profile_id' => env('INSTAGRAM_PROFILE_ID', ''),
     'start_buttons' => [
@@ -74,7 +74,6 @@ This command will add the [start buttons](https://developers.facebook.com/docs/i
 
 ## Usage
 
-Let's take an invoice-paid-notification as an example.
 You can now use the Instagram channel in your `via()` method, inside the InvoicePaid class. The `to($recipientId)` (IGSID) method defines the Instagram user, you want to send the notification to.
 
 ```php
