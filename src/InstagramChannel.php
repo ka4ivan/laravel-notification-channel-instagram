@@ -15,7 +15,7 @@ class InstagramChannel
     private $instagram;
 
     /**
-     * FacebookChannel constructor.
+     * InstagramChannel constructor.
      */
     public function __construct(Instagram $instagram)
     {
