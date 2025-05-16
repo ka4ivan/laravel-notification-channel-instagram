@@ -4,8 +4,6 @@ namespace NotificationChannels\Instagram;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use NotificationChannels\Instagram\Exceptions\CouldNotCreateMessage;
 use NotificationChannels\Instagram\Exceptions\CouldNotSendNotification;
 
