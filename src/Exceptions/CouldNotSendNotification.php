@@ -19,10 +19,10 @@ class CouldNotSendNotification extends \Exception
         if ($exception->hasResponse()) {
             $result = json_decode($exception->getResponse()->getBody(), false);
 
-            return new static("Facebook responded with an error `{$result->error->code} - {$result->error->type} {$result->error->message}`");
+            return new static("Instagram responded with an error `{$result->error->code} - {$result->error->type} {$result->error->message}`");
         }
 
-        return new static('Facebook responded with an error');
+        return new static('Instagram responded with an error');
     }
 
     /**
