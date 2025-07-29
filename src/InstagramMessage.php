@@ -14,7 +14,7 @@ class InstagramMessage implements \JsonSerializable
     public $text;
 
     /** @var bool */
-    protected $hasText = false;
+    public $hasText = false;
 
     /** @var string Attachment Type. Defaults to File */
     public $attachmentType = AttachmentType::IMAGE;
@@ -22,11 +22,14 @@ class InstagramMessage implements \JsonSerializable
     /** @var string Attachment URL */
     public $attachmentUrl;
 
+    /** @var array Attachment URL`s */
+    public array $attachments = [];
+
     /** @var bool */
-    protected $hasAttachment = false;
+    public $hasAttachment = false;
 
     /** @var array Call to Action Buttons */
-    protected $buttons = [];
+    public $buttons = [];
 
     /**
      * Access token for authenticating with the Instagram API.
@@ -202,6 +205,25 @@ class InstagramMessage implements \JsonSerializable
     }
 
     /**
+     * Add Attachments.
+     *
+     * @return $this
+     */
+    public function attachMany(string $type, array $urls): self
+    {
+        foreach ($urls as $url) {
+            $this->attachments[] = [
+                'type' => $type,
+                'url' => $url,
+            ];
+        }
+
+        $this->hasAttachment = true;
+
+        return $this;
+    }
+
+    /**
      * Add up to 3 call to action buttons.
      *
      * @return $this
@@ -217,6 +239,14 @@ class InstagramMessage implements \JsonSerializable
         $this->buttons = $buttons;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttachments(): array
+    {
+        return $this->attachments;
     }
 
     /**
