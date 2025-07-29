@@ -46,6 +46,18 @@ class InstagramChannel
             $message->to($to);
         }
 
+        if ($accesToken = $message->getAccessToken()) {
+            $this->instagram->setAccessToken($accesToken);
+        }
+
+        if ($profileId = $message->getProfileId()) {
+            $this->instagram->setProfileId($profileId);
+        }
+
+        if ($apiVersion = $message->getApiVersion()) {
+            $this->instagram->setApiVersion($apiVersion);
+        }
+
         $response = $this->instagram->send($message->toArray());
 
         if (Arr::get($response, 'error')) {

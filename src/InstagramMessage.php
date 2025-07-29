@@ -29,6 +29,29 @@ class InstagramMessage implements \JsonSerializable
     protected $buttons = [];
 
     /**
+     * Access token for authenticating with the Instagram API.
+     *
+     * @var string
+     */
+    protected ?string $accessToken = null;
+
+    /**
+     * Instagram profile ID associated with the authenticated user.
+     *
+     * curl -X GET "https://graph.instagram.com/me?fields=id,username&access_token=ACCESS_TOKEN"
+     *
+     * @var string
+     */
+    protected ?string $profileId = null;
+
+    /**
+     * Instagram API version (e.g., '22.0')
+     *
+     * @var string
+     */
+    protected ?string $apiVersion = null;
+
+    /**
      * @throws CouldNotCreateMessage
      */
     public function __construct(string $text = '')
@@ -36,6 +59,69 @@ class InstagramMessage implements \JsonSerializable
         if ('' !== $text) {
             $this->text($text);
         }
+    }
+
+    /**
+     * Set the access token used for authenticating API requests.
+     *
+     * @param string $accessToken Instagram access token.
+     * @return $this
+     */
+    public function setAccessToken(string $accessToken): self
+    {
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+    /**
+     * Set the Instagram profile ID for API requests.
+     *
+     * @param string $profileId Instagram profile ID.
+     * @return $this
+     */
+    public function setProfileId(string $profileId): self
+    {
+        $this->profileId = $profileId;
+
+        return $this;
+    }
+
+    /**
+     * Set Default Graph API Version.
+     *
+     * @param string $apiVersion
+     * @return $this
+     */
+    public function setApiVersion(string $apiVersion): self
+    {
+        $this->apiVersion = $apiVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAccessToken(): ?string
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileId(): ?string
+    {
+        return $this->profileId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiVersion(): ?string
+    {
+        return $this->apiVersion;
     }
 
     /**
