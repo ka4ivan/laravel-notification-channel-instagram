@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.0 - 2025-07-29
+- setting configurations in `InstagramMessage`
+
 ## 1.1.2 - 2025-05-16
 - improve documentation
 - fix typo in comment
