@@ -157,6 +157,7 @@ public function routeNotificationForInstagram()
 - `to($recipientId)`: (string) User (recipient) Instagram ID (IGSID).
 - `text('')`: (string) Notification message.
 - `attach($attachmentType, $url)`: (AttachmentType, string) An attachment type (IMAGE, AUDIO, VIDEO) and the url of this attachment.
+- `attachMany($attachmentType, $urls)`: (AttachmentType, array) An attachment type (IMAGE, AUDIO, VIDEO) and the urls array of this attachments.
 - `buttons($buttons = [])`: (array) An array of "Call to Action" buttons (Created using NotificationChannels\Instagram\Components\Button::create()). You can add up to 3 buttons of one of the following types: web_url or postback. See Button methods below for more details.
 - `setApiVersion($apiVersion)`: (string) Set Default Graph API Version.
 - `setAccessToken($accessToken)`: (string) Set the access token used for authenticating API requests.
