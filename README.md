@@ -94,6 +94,9 @@ class ChannelConnected extends Notification
 
         return InstagramMessage::create()
             ->to($notifiable->instagram_id) // Optional
+            ->setApiVersion('22.0') // Optional
+            ->setAccessToken('ABCD') // Optional
+            ->setProfileId('abcd') // Optional
             ->text('Congratulations, the communication channel is connected');
     }
 }
@@ -155,6 +158,9 @@ public function routeNotificationForInstagram()
 - `text('')`: (string) Notification message.
 - `attach($attachmentType, $url)`: (AttachmentType, string) An attachment type (IMAGE, AUDIO, VIDEO) and the url of this attachment.
 - `buttons($buttons = [])`: (array) An array of "Call to Action" buttons (Created using NotificationChannels\Instagram\Components\Button::create()). You can add up to 3 buttons of one of the following types: web_url or postback. See Button methods below for more details.
+- `setApiVersion($apiVersion)`: (string) Set Default Graph API Version.
+- `setAccessToken($accessToken)`: (string) Set the access token used for authenticating API requests.
+- `setProfileId($profileId)`: (string) Set the Instagram profile ID for API requests.
 
 
 ### Available Button methods
