@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0 - 2025-07-30
+- attaching multiple files in `InstagramMessage`: `attachMany`
+
+## 1.2.0 - 2025-07-29
+- setting configurations in `InstagramMessage`
+
 ## 1.1.2 - 2025-05-16
 - improve documentation
 - fix typo in comment
